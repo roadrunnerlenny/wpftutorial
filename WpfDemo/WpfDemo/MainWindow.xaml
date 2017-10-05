@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="525">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:LogViewModel}">
+            <local:LogDetailsControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:OnlyUIViewModel}">
+            <local:SecondPageUserControl />
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="1" HorizontalAlignment="Center">
+            <Image Source="Images/lemonade.ico" Height="64" />
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Lemonade Log Viewer" FontSize="18" VerticalAlignment="Center"/>
+                <!--<TextBlock Text="#Name of Log in Model" />-->
+                <TextBlock Text="{Binding Path=DemoLog.Name}" />
+            </StackPanel>
+        </DockPanel>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="10" Width="450">
+            <!--<local:LogDetailsControl DataContext="{Binding DemoLog}"/>-->
+            <ContentControl Content="{Binding CurrentView}" />
+        </StackPanel>
+
+        <WrapPanel Grid.Row="3" HorizontalAlignment="Center">
+            <Button Content="&lt;--Prev" Height="32" Margin="10" Command="{Binding PrevPageCommand}" />
+            <Button Content="Next--&gt;" Height="32" Margin="10" Command="{Binding NextPageCommand}"/>
+        </WrapPanel>
+    </Grid>
+</Window>
